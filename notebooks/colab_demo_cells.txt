@@ -1,0 +1,8 @@
+Colab cells to run in order:
+1) Install deps + create files (Cell A)
+2) Upload PDFs via Colab files.upload or copy from /mnt/data
+3) Build index from scRAG/data/papers (Cell B)
+4) Optional: set HF_MODEL and test local HF generation (Cell C)
+5) Run demo queries and save results (Cell D)
+6) Git commit & push to GitHub from Colab (Cell E)
+7) Zip repo for download (Cell F)

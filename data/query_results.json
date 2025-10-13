@@ -1,0 +1,149 @@
+[
+  {
+    "question": "Which normalization and batch-correction strategies are recommended for 10x multi-batch PBMC data?",
+    "answer": "[4] s41467-023-42841-y.pdf",
+    "hits": [
+      {
+        "id": "chunk-497",
+        "source": "s41592-025-02657-8.pdf",
+        "source_path": "/content/scRAG/data/papers/s41592-025-02657-8.pdf",
+        "excerpt": "ely to be widely adopted in  future studies. In particular, we envision scalable single-cell screens,  spanning epigenetic, genetic and chemical perturbations, being  embedded in emerging multi-omic perturbation frameworks 10 and  accelerated by these new methods. For example, CRISPR-based genetic  ",
+        "text": "ely to be widely adopted in \nfuture studies. In particular, we envision scalable single-cell screens, \nspanning epigenetic, genetic and chemical perturbations, being \nembedded in emerging multi-omic perturbation frameworks 10 and \naccelerated by these new methods. For example, CRISPR-based genetic \nand epigenetic screens directly benefit from the multiplicative gains in \ncell coverage unlocked by SUM-seq and UDA-seq. Indeed, perturbation \nscreens were featured by both assays in heterogeneous settings, includ-\ning differentiating human induced pluripotent stem cells profiled by \nSUM-seq2 and cancer cell lines via UDA-seq3. As these scalable methods \nenable surveying a large perturbational space with multimodal read-\nouts, causal relationships between highly correlated features that \nunderlie cellular behavior may now be resolved via the multiplexed \ndepth and multimodal breadth.\nWell-sorting Pre-indexing\nDroplet overloading\nGEM barcoding\nApproaches for extended modalities and increased "
+      },
+      {
+        "id": "chunk-498",
+        "source": "s41592-025-02657-8.pdf",
+        "source_path": "/content/scRAG/data/papers/s41592-025-02657-8.pdf",
+        "excerpt": "throughput in single-cell sequencing Bulk cell mixture Tagmentation for ATAC UDA-seq: GEM barcodingOptional multi-omics preprocessing Well-sorting and  post-indexing Pre-index cbc 1 mRNA cell 1 Pre-index cbc 1 mRNA cell 2 Pre-index cbc 2 mRNA cell 3 Pre-index cbc 2 mRNA cell 4 cbc 2 Post-index Post-",
+        "text": "throughput in single-cell sequencing\nBulk cell\nmixture\nTagmentation for ATAC\nUDA-seq:\nGEM barcodingOptional multi-omics\npreprocessing\nWell-sorting and \npost-indexing\nPre-index\ncbc 1\nmRNA cell 1\nPre-index\ncbc 1\nmRNA cell 2\nPre-index\ncbc 2\nmRNA cell 3\nPre-index\ncbc 2\nmRNA cell 4\ncbc 2\nPost-index\nPost-index\nmRNA cell 1\ncbc 2 mRNA cell 2\nMultimodal \nanalysis\ncbc 1\nmRNA cell 1\ncbc 1\nmRNA cell 2\ncbc 2\nmRNA cell 3\ncbc 2\nmRNA cell 4\n1. ATAC \n    barcoding\n2. scRNA \n    barcoding mRNA cell 1\nmRNA cell 2\nTTTT\nTTTT\nAAAA\nAAAA\nPre-index\nPre-index\nSUM-seq:\nFig. 1 | Approaches for multiplexing single-cell multi-omics. Both SUM-seq and UDA-seq combine GEM (10x Genomics) barcoding, providing a cell barcode (cbc) \nwith an additional indexing step to achieve an individual combinatorial index for each cell, enabling droplet overloading."
+      },
+      {
+        "id": "chunk-375",
+        "source": "s41580-023-00615-w.pdf",
+        "source_path": "/content/scRAG/data/papers/s41580-023-00615-w.pdf",
+        "excerpt": "196. John, C. R., Watson, D., Barnes, M. R., Pitzalis, C. & Lewis, M. J. Spectrum: fast  density-aware spectral clustering for single and multi-omic data. Bioinformatics 36,  1159\u20131166 (2020). 197. Dou, J. et. al. Unbiased integration of single cell multi-omics data. Preprint at bioRxiv  https://doi",
+        "text": "196. John, C. R., Watson, D., Barnes, M. R., Pitzalis, C. & Lewis, M. J. Spectrum: fast \ndensity-aware spectral clustering for single and multi-omic data. Bioinformatics 36, \n1159\u20131166 (2020).\n197. Dou, J. et. al. Unbiased integration of single cell multi-omics data. Preprint at bioRxiv \nhttps://doi.org/10.1101/2020.12.11.422014 (2020).\n198. Liu, J., Huang, Y., Singh, R., Vert, J. P. & Noble, W. S. Jointly embedding multiple \nsingle-cell omics measurements. Algorithms Bioinform. https://doi.org/10.4230/\nLIPIcs.WABI.2019.10 (2019).\n199. Duan, B. et al. Model-based understanding of single-cell CRISPR screening. \nNat. Commun. 10, 2233 (2019).\n200. Cao, K., Bai, X., Hong, Y. & Wan, L. Unsupervised topological alignment for single-cell \nmulti-omics integration. Bioinformatics 36, i48\u2013i56 (2020).\n201. Campbell, K. R. et al. clonealign: Statistical integration of independent single-cell RNA \nand DNA sequencing data from human cancers. Genome Biol. 20, 54 (2019).\n202. Cao, K., Hong, Y. & Wan, "
+      },
+      {
+        "id": "chunk-213",
+        "source": "s41467-023-42841-y.pdf",
+        "source_path": "/content/scRAG/data/papers/s41467-023-42841-y.pdf",
+        "excerpt": "mber of PCs and the cell cluster number are both determined using an elbow method 23. The origin of the pseudotime is speci\ufb01ed by users based on marker gene expression (or the origin cell types if users input the cell types annotation). For example, in the bone marrow data, the cluster with the high",
+        "text": "mber of PCs and the cell cluster number are both\ndetermined using an elbow method\n23. The origin of the pseudotime is\nspeci\ufb01ed by users based on marker gene expression (or the origin cell\ntypes if users input the cell types annotation). For example, in the bone\nmarrow data, the cluster with the highest expression of hematopoietic\nstem cell (HSC) markerCD34 was set as the origin. Once the origin of\nthe trajectory is given, one can enumerate all paths and branches.\nBranches are identi\ufb01ed based on nodes with degree > 2.\nArticle https://doi.org/10.1038/s41467-023-42841-y\nNature Communications|         (2023) 14:7286 14\nFor each of the branch, we characterize its uncertainty using its\ndetection rate in 1000 bootstrap samples. Each bootstrap sample is\ncreated by sampling cells from the original data with replacement. Cells\nin the bootstrap sample are used to reconstruct pseudotemporal tra-\njectory using the same cMST approach as in the original data. The\norigin of the pseudotime in a bootstr"
+      },
+      {
+        "id": "chunk-188",
+        "source": "s41467-023-42841-y.pdf",
+        "source_path": "/content/scRAG/data/papers/s41467-023-42841-y.pdf",
+        "excerpt": "rculosis data demonstrates ef\ufb01ciency in handling large datasets while adjusting for batch effects To demonstrate and evaluateLamian \u2019s ability to analyze large data- sets and detect differences associated with sample covariates while adjusting for potential confounders such as batch effects, we anal",
+        "text": "rculosis data demonstrates ef\ufb01ciency in\nhandling large datasets while adjusting for batch effects\nTo demonstrate and evaluateLamian \u2019s ability to analyze large data-\nsets and detect differences associated with sample covariates while\nadjusting for potential confounders such as batch effects, we analyzed\nan atlas-size dataset consisting of 337,191 memory T cells from 184\ndonors (100 females and 84 males) in a tuberculosis (TB) progression\ncohort\n50 (Fig. 6a, b). This dataset has recently been used for demon-\nstrating co-varying neighborhood analysis and biologically meaningful\ncell abundance differences between males and females were reported\nalong the second principal component of the co-varying neighbor-\nhood abundance matrix (NAM-PC2)\n51. Consistent with that study, we\nprovided NAM-PC2 as cells\u2019 pseudotime and conducted differential\nanalysis (Fig.6a). Samples in this dataset are pro\ufb01led in multiple bat-\nches (Fig.6b). We added batch indicators to theLamian regression\nmodel to account"
+      }
+    ],
+    "dists": [
+      1.37166428565979,
+      1.3895540237426758,
+      1.3914698362350464,
+      1.3954253196716309,
+      1.4090017080307007
+    ],
+    "time_s": 2.513397693634033
+  },
+  {
+    "question": "Compare Monocle vs Slingshot vs Palantir for pseudotime ordering; when to use each?",
+    "answer": "Monocle vs Slingshot vs Palantir",
+    "hits": [
+      {
+        "id": "chunk-204",
+        "source": "s41467-023-42841-y.pdf",
+        "source_path": "/content/scRAG/data/papers/s41467-023-42841-y.pdf",
+        "excerpt": "n addition to cluster number, TSCAN also allows users to manually specify the order of cell clusters in the trajectory, providing another way to adjust the trajec- tory based on users\u2019 prior knowledge. These options inTSCAN allow users to conveniently perform analysis on more complex tree struc- tur",
+        "text": "n addition to cluster\nnumber, TSCAN also allows users to manually specify the order of cell\nclusters in the trajectory, providing another way to adjust the trajec-\ntory based on users\u2019 prior knowledge. These options inTSCAN allow\nusers to conveniently perform analysis on more complex tree struc-\ntures. Once the tree topology is given, all the remaining analyses\nincluding those in modules 2 to 4 (differential topology, XDE, TDE,\nXCD, TCD) can be carried out as usual.\nBesides TSCAN, one also has an option to use user-provided\npseudotemporal trajectories as illustrated in the TB analysis. In fact,\none may useLamianmodules 3 and 4 as downstream analysis tools for\nother pseudotime methods such as Monocle2, Monocle3 and\nslingshot.H o w e v e r ,Lamian modules 1 and 2 which construct tra-\njectory and quantify its uncertainty and variation currently do not\nsupport other pseudotime methods due to various issues including\nscalability and implementation challenges (Supplementary Notes). For\nexamp"
+      },
+      {
+        "id": "chunk-205",
+        "source": "s41467-023-42841-y.pdf",
+        "source_path": "/content/scRAG/data/papers/s41467-023-42841-y.pdf",
+        "excerpt": "le, slingshot, a popular MST method similar toTSCAN,d o e s not scale well to bootstrap due to its time-consuming principal curve \ufb01tting. ForMonocle2 and Monocle3,m o d i f y i n gLamian \u2019s trajectory topology uncertainty module to support them is non-trivial due to lack of interoperability between ",
+        "text": "le, slingshot, a popular MST method similar toTSCAN,d o e s\nnot scale well to bootstrap due to its time-consuming principal curve\n\ufb01tting. ForMonocle2 and Monocle3,m o d i f y i n gLamian \u2019s trajectory\ntopology uncertainty module to support them is non-trivial due to lack\nof interoperability between the data structures used by different\nArticle https://doi.org/10.1038/s41467-023-42841-y\nNature Communications|         (2023) 14:7286 13\nmethods to represent trajectory topology. A future direction is to\ntailor these methods to improve their scalability and/or interoper-\nability to allow their seamless connection toLamian modules 1 and 2.\nUncertainties in the pseudotime analysis include both the uncer-\ntainty of the inferred pseudotemporal trajectory and the uncertainty of\ngene expression or cell abundance conditional on pseudotime. In\nLamian, the trajectory inference uncertainties are characterized by\nbootstraping cells to compute detection rates. Conceptually, one could\nalso account for t"
+      },
+      {
+        "id": "chunk-148",
+        "source": "s41467-023-42841-y.pdf",
+        "source_path": "/content/scRAG/data/papers/s41467-023-42841-y.pdf",
+        "excerpt": "antages of usingTSCAN to construct pseudotime include (i) the scalability of its cMST approach to a large number of cells (since the number of tree nodes in the spanning tree is determined by cell cluster number instead of cell number) and repe- ated bootstrap resamplings, (ii) the\ufb02exibility it prov",
+        "text": "antages of usingTSCAN to construct\npseudotime include (i) the scalability of its cMST approach to a large\nnumber of cells (since the number of tree nodes in the spanning tree is\ndetermined by cell cluster number instead of cell number) and repe-\nated bootstrap resamplings, (ii) the\ufb02exibility it provides to support\nboth automatic and manual trajectory construction\n23,a n d( i i i )i t s\noverall competitive performance in multiple previous benchmark\nevaluations\n3,36.\nModule 2 of Lamian \ufb01rst identi\ufb01es variation in tree topology\nacross samples and then assesses if there are differential topological\nchanges associated with sample covariates (Fig.1b). For each sample,\nLamiancalculates the proportion of cells in each tree branch, referred\nto as branch cell proportion. Because a zero or low proportion can\nre\ufb02ect the absence or depletion of a branch, changes in tree topology\nc a nb ed e s c r i b e du s i n gb r a n c hc e l lp r o p o r t i o nc h a n g e s .W i t hm u l t i p l e\nsamples, Lam"
+      },
+      {
+        "id": "chunk-202",
+        "source": "s41467-023-42841-y.pdf",
+        "source_path": "/content/scRAG/data/papers/s41467-023-42841-y.pdf",
+        "excerpt": "e referred to a recent benchmark study 35 for discussions on which harmonization methods to use under different conditions. In Lamian, TSCAN is used as the default method to construct pseudotime due to its\ufb02exibility and scalability.TSCANuses the cluster- based MST approach to reduce the number of tr",
+        "text": "e referred to a recent\nbenchmark study\n35 for discussions on which harmonization methods\nto use under different conditions.\nIn Lamian, TSCAN is used as the default method to construct\npseudotime due to its\ufb02exibility and scalability.TSCANuses the cluster-\nbased MST approach to reduce the number of tree nodes (e.g. clus-\ntering 1 million cells into 1000 clusters will result in only 1000 tree\nnodes instead of 1 million tree nodes) and hence can handle a large\nnumber of cells. In terms of\ufb02exibility, whileTSCAN by default deter-\nmines the number of cell clusters automatically via an elbow method,\nusers have the option to specify their own cluster number if they are\nnot satis\ufb01ed with the default cluster number. Increasing the cluster\nnumber may create a more complex tree with a more detailed view of\nthe biological process. However, the increased complexity could also\nintroduce noise and false branches (Fig. S3). In real applications, even\nthough one may construct a more complex tree, a key q"
+      },
+      {
+        "id": "chunk-200",
+        "source": "s41467-023-42841-y.pdf",
+        "source_path": "/content/scRAG/data/papers/s41467-023-42841-y.pdf",
+        "excerpt": "ifferential signals. This highlights a critical gap in the pseudotime literature and an open challenge that needs to be addressed. Lamian\ufb01lls in this gap by introducing a comprehensive statistical framework, including a functional mixed effects model, to account for cross- sample variability in the ",
+        "text": "ifferential\nsignals. This highlights a critical gap in the pseudotime literature\nand an open challenge that needs to be addressed. Lamian\ufb01lls in\nthis gap by introducing a comprehensive statistical framework,\nincluding a functional mixed effects model, to account for cross-\nsample variability in the multi-sample differential pseudotime ana-\nlysis. In order to benchmark this method, we applied it to both\nsimulated and real data. We note that the analyses of three real\ndatasets (HCA-BM, COVID, TB) mainly serve the purpose of illus-\ntrating and evaluating Lamian, and that making new biological\ndiscoveries per se is not the focus of this study. The orthogonal\ninformation (e.g. sex chromosome genes) and large sample size\n(e.g. COVID and TB data) available in these data make it possible to\nobjectively and robustly compare different methods by quantifying\nthe overlap with orthogonal information or between independent\ndata partitions. Our results in these simulated and real data show\nthat the s"
+      }
+    ],
+    "dists": [
+      1.148400068283081,
+      1.2617188692092896,
+      1.3092856407165527,
+      1.320594072341919,
+      1.4771137237548828
+    ],
+    "time_s": 2.6290371417999268
+  },
+  {
+    "question": "Suggest a compact supervised model for cell-type classification after PCA (provide hyperparams).",
+    "answer": "[5] s41598-022-20106-w.pdf -- hbor graph using the FindClusters function and the Jaccard index as a similarity measure. [4] s41598-022-20106-w.pdf -- hbor graph using the FindClusters function and the Jaccard index as a similarity measure. [5] s41598-022-20106-w.pdf -- hbor graph using the FindClusters function and the Jaccard index as a similarity measure. [4] s41598-022-20106-w.pdf -- hbor graph using the FindClusters function and the Jaccard index as a similarity measure. [5] s41598-022-20106-w.pdf -- hbor graph using the FindClusters function and the Jaccard index as a similarity measure. [5] s41598-022-20106-w.pdf -- hbor graph using the FindClusters function and the Jaccard index as a similarity measure. [5] ",
+    "hits": [
+      {
+        "id": "chunk-334",
+        "source": "s41580-023-00615-w.pdf",
+        "source_path": "/content/scRAG/data/papers/s41580-023-00615-w.pdf",
+        "excerpt": "gene-to-cell significance, generate clusters and ultimately eluci - date diverse biological networks for each cell type 175. T o maximally  utilize all information from multi-omics data sets, it is indispensable  to develop integrative methods that include matched and unmatched  samples and/or genes",
+        "text": "gene-to-cell significance, generate clusters and ultimately eluci -\ndate diverse biological networks for each cell type 175. T o maximally \nutilize all information from multi-omics data sets, it is indispensable \nto develop integrative methods that include matched and unmatched \nsamples and/or genes from the input data. Despite advancements in \nthe many computational integration tools for multi-omics and multi-\nlayered data, analysis of biological functionality of cell types and gene \nregulatory networks remains a computational challenge.\nAlthough multi-omics data can improve and refine the definition \nof cell state, these data also provide a unique resource for identify -\ning regulatory relationships between molecular modalities. These \nTable 3 | Timeline and integration capacity of multi-omics computational methods\nYear Name Methodology Integration capacity Ref.\nFrom same single cell (matched)\n2019 SCHEMA Metric learning-based method Chromatin accessibility, mRNA, proteins, immunopro"
+      },
+      {
+        "id": "chunk-333",
+        "source": "s41580-023-00615-w.pdf",
+        "source_path": "/content/scRAG/data/papers/s41580-023-00615-w.pdf",
+        "excerpt": "ITE-seq68 and others) are easier to work with  computationally as different modalities can be tethered to a single cell  Nature Reviews Molecular Cell Biology | Volume 24 | October 2023 | 695\u2013713 708 Review article or a single spot; however, the sequencing capacity of each modality  causes the overa",
+        "text": "ITE-seq68 and others) are easier to work with \ncomputationally as different modalities can be tethered to a single cell \nNature Reviews Molecular Cell Biology | Volume 24 | October 2023 | 695\u2013713 708\nReview article\nor a single spot; however, the sequencing capacity of each modality \ncauses the overall sample size to decrease. Recently, Seurat v4 used a \nweighted nearest-neighbour analysis to integrate multiple modalities \nmeasured from a single cell and collectively define a cellular state 174. \nThis unsupervised strategy learns cell-specific modality \u2018weights\u2019 that \ncontain the information from each modality to determine its signifi -\ncance in subsequent analysis steps. Another method, DeepMAPS (deep \nlearning-based multi-omics analysis platform for single-cell data), uses \na five-step framework to preprocess data, generate an integrated cell\u2013\ngene matrix specific to multi-omics data types, use a heterogeneous \ngraph transformer model to generate a score for each cell indicating \nits "
+      },
+      {
+        "id": "chunk-310",
+        "source": "s41580-023-00615-w.pdf",
+        "source_path": "/content/scRAG/data/papers/s41580-023-00615-w.pdf",
+        "excerpt": "atin with sequencing (ATAC-seq), cleavage under targets and  tagmentation (CUT&Tag), cellular indexing of transcriptomes and epitopes  by sequencing (CITE-seq) and other modalities. c , Spatial multi-omics data  analysis methods generally partition data into clusters to find functional cell  subtype",
+        "text": "atin with sequencing (ATAC-seq), cleavage under targets and \ntagmentation (CUT&Tag), cellular indexing of transcriptomes and epitopes \nby sequencing (CITE-seq) and other modalities. c , Spatial multi-omics data \nanalysis methods generally partition data into clusters to find functional cell \nsubtypes within different microenvironments. These high-dimensional data \nare typically visualized using dimensionality reduction techniques such as \nuniform manifold approximation and projection (UMAP) to view multimodal \nsingle-cell measurements. Various computational clustering algorithms can \nbe applied to downstream multimodal analysis to automatically estimate \ncell types and compare clustering attributes of different modalities. Within \nand between cell clusters, heterogeneous archetypes of signalling pathways \ninferred from cell\u2013cell interaction analyses can be used to characterize \nlocal cellular microenvironments. Geo-seq, geographical position \nsequencing; PDMS, polydimethylsiloxane; SMI"
+      },
+      {
+        "id": "chunk-652",
+        "source": "s41598-019-39459-w.pdf",
+        "source_path": "/content/scRAG/data/papers/s41598-019-39459-w.pdf",
+        "excerpt": "wide expression patterns. Proc. Natl.  Acad. Sci. 95, 14863\u201314868 (1998).  2. MacQueen, J. Some methods for classification and analysis of multivariate observations. Proc Fifth Berkeley Sympos. Math. Stat. and  Probab. (Berkeley, Calif., 1965/66), Vol. I: Statistics. 281\u2013297 (1967).  3. Kaufman, L. ",
+        "text": "wide expression patterns. Proc. Natl. \nAcad. Sci. 95, 14863\u201314868 (1998).\n 2. MacQueen, J. Some methods for classification and analysis of multivariate observations. Proc Fifth Berkeley Sympos. Math. Stat. and \nProbab. (Berkeley, Calif., 1965/66), Vol. I: Statistics. 281\u2013297 (1967).\n 3. Kaufman, L. & Rousseeuw, P . J. Finding Groups in Data: An Introduction to Cluster Analysis. John Wiley & Sons, Inc., first edition \n(2008).\n 4. Kohonen, T. Self-organizing maps. Volume 30 of Springer Series in Information Sciences. Springer-Verlag, Berlin, second edition \n(1997).\n 5. Tamayo, P . et al. Interpreting patterns of gene expression with self-organizing maps: Methods and application to hematopoietic \ndifferentiation. Proc. Natl. Acad. Sci. 96, 2907\u20132912 (1999).\n 6. Tseng, G. C. & Wong, W . H. Tight clustering: A resampling-based approach for identifying stable and tight patterns in data. \nBiometrics. 61, 10\u201316 (2005).\n 7. Thalamuthu, A., Mukhopadhyay, I., Zheng, X. & Tseng, G. C. Evaluation a"
+      },
+      {
+        "id": "chunk-718",
+        "source": "s41598-022-20106-w.pdf",
+        "source_path": "/content/scRAG/data/papers/s41598-022-20106-w.pdf",
+        "excerpt": "hbor graph using the  FindClusters function and the Jaccard index as a similarity measure. This number matches the number of clus- ters identified in (Fletcher et\u00a0al. 31) for this data. The expression of cell type marker genes that were collected  from the literature (STable\u00a02) served to assign cell",
+        "text": "hbor graph using the \nFindClusters function and the Jaccard index as a similarity measure. This number matches the number of clus-\nters identified in (Fletcher et\u00a0al. 31) for this data. The expression of cell type marker genes that were collected \nfrom the literature (STable\u00a02) served to assign cell clusters manually to known cell types according to the Seurat \n guidelines74. At least two expressed markers were required to confidently annotate a specific cell type. Visualiza-\ntion of the data was performed by PCA,  UMAP77 and  tSNE78.\nTrajectory inference and pseudotime assignment. Slingshot38 was used to construct a minimum \nspanning tree (MST) based on the top 10-dimensional representation of the cells obtained above. The topology \nof the MST is independent of the root choice. For biological reasons, we selected qGBC as the root for the assign-\nment of pseudo time, where it can differentiate to any cell type of  MOE37. For each cell, a pseudotime between 0 \n(cells at the root node) a"
+      }
+    ],
+    "dists": [
+      0.9064592123031616,
+      0.909522533416748,
+      0.9298957586288452,
+      0.9335184693336487,
+      0.9425529837608337
+    ],
+    "time_s": 20.647008180618286
+  }
+]

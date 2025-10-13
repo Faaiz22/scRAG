@@ -1,0 +1,14 @@
+faiss-cpu
+sentence-transformers
+torch
+transformers
+pypdf
+pymupdf
+docx2txt
+python-dotenv
+streamlit
+scikit-learn
+scanpy
+anndata
+pandas
+numpy

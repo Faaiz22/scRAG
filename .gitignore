@@ -1,0 +1,5 @@
+__pycache__/
+.env
+scRAG/data/faiss_index.index
+scRAG/data/faiss_meta.pkl
+scRAG/data/*.npy
