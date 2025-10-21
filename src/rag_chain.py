@@ -164,39 +164,309 @@ class LLMWrapper:
         return prompt
 
     def _mock_answer(self, question: str, contexts: List[dict]) -> str:
-        """Generate a mock answer when no LLM is available."""
-        lines = [f"**Question:** {question}\n"]
-        lines.append("**Evidence Retrieved:**")
+        """Generate an intelligent answer by extracting and synthesizing information from contexts."""
+        if not contexts or all(not c for c in contexts):
+            return self._fallback_answer(question)
         
-        if contexts:
-            for i, c in enumerate(contexts[:5]):
-                if not c:
-                    continue
-                source = c.get('source', 'Unknown')
-                excerpt = c.get('excerpt', c.get('text', ''))[:200].replace('\n', ' ')
-                lines.append(f"[{i+1}] **{source}** — {excerpt}...")
+        # Extract relevant text from all contexts
+        all_text = []
+        sources = []
+        for i, c in enumerate(contexts[:5]):
+            if not c:
+                continue
+            text = c.get('text', c.get('excerpt', ''))
+            if text:
+                all_text.append(text)
+                sources.append((i+1, c.get('source', 'Unknown')))
+        
+        if not all_text:
+            return self._fallback_answer(question)
+        
+        # Combine all context
+        combined_text = ' '.join(all_text).lower()
+        question_lower = question.lower()
+        
+        # Generate answer based on question type and context
+        answer = self._extract_answer(question_lower, combined_text, sources, contexts)
+        
+        return answer
+    
+    def _extract_answer(self, question: str, context: str, sources: list, contexts: list) -> str:
+        """Extract and format answer from context based on question."""
+        lines = []
+        
+        # Determine question type and extract relevant info
+        if any(kw in question for kw in ['what is', 'define', 'definition', 'explain']):
+            # Definition/explanation question
+            subject = self._extract_subject(question)
+            lines.append(f"Based on the retrieved literature:\n")
+            
+            # Extract definition-like sentences
+            definitions = self._extract_definitions(context, subject, contexts)
+            if definitions:
+                for def_text, src_idx in definitions[:3]:
+                    lines.append(f"[{src_idx}] {def_text}\n")
+            
+            # Add key points
+            key_points = self._extract_key_points(context, subject)
+            if key_points:
+                lines.append("\n**Key Points:**")
+                for point in key_points[:5]:
+                    lines.append(f"- {point}")
+        
+        elif any(kw in question for kw in ['how to', 'how do', 'steps', 'process', 'workflow']):
+            # How-to/process question
+            lines.append("Based on the retrieved literature:\n")
+            
+            # Extract step-by-step information
+            steps = self._extract_steps(context, contexts)
+            if steps:
+                lines.append("\n**Approach:**")
+                for i, (step, src_idx) in enumerate(steps[:6], 1):
+                    lines.append(f"{i}. {step} [{src_idx}]")
+            else:
+                # Extract method descriptions
+                methods = self._extract_methods(context, contexts)
+                for method, src_idx in methods[:4]:
+                    lines.append(f"- {method} [{src_idx}]")
+        
+        elif any(kw in question for kw in ['best', 'recommended', 'should', 'compare', 'better']):
+            # Recommendation/comparison question
+            lines.append("Based on the retrieved literature:\n")
+            
+            recommendations = self._extract_recommendations(context, contexts)
+            if recommendations:
+                for rec, src_idx in recommendations[:4]:
+                    lines.append(f"- {rec} [{src_idx}]")
+        
+        elif any(kw in question for kw in ['why', 'reason', 'because', 'advantage', 'disadvantage']):
+            # Reasoning/explanation question
+            lines.append("Based on the retrieved literature:\n")
+            
+            explanations = self._extract_explanations(context, contexts)
+            for exp, src_idx in explanations[:4]:
+                lines.append(f"- {exp} [{src_idx}]")
+        
         else:
-            lines.append("No relevant documents found.")
+            # General question - extract most relevant sentences
+            lines.append("Based on the retrieved literature:\n")
+            relevant = self._extract_relevant_sentences(question, contexts)
+            for sent, src_idx in relevant[:5]:
+                lines.append(f"[{src_idx}] {sent}\n")
         
-        lines.append("\n**Suggested Analysis Steps:**")
-        lines.append("1. **Quality Control**: Filter cells and genes based on QC metrics")
-        lines.append("2. **Normalization**: Apply log-normalization or SCTransform")
-        lines.append("3. **Feature Selection**: Identify highly variable genes (HVGs)")
-        lines.append("4. **Dimensionality Reduction**: PCA followed by UMAP/t-SNE")
-        lines.append("5. **Clustering**: Leiden or Louvain clustering")
-        lines.append("6. **Cell Type Annotation**: Use markers or reference-based methods")
+        # Add sources
+        if sources:
+            lines.append("\n**Sources:**")
+            for idx, source in sources:
+                lines.append(f"[{idx}] {source}")
         
-        lines.append("\n**Common Tools:**")
-        lines.append("- **Scanpy**: Python toolkit for analyzing single-cell data")
-        lines.append("- **Seurat**: R package for scRNA-seq analysis")
-        lines.append("- **scVI**: Deep learning models for scRNA-seq")
+        return "\n".join(lines) if lines else self._fallback_answer(question)
+    
+    def _extract_definitions(self, context: str, subject: str, contexts: list) -> list:
+        """Extract definition-like sentences."""
+        definitions = []
+        patterns = [
+            ' is ', ' are ', ' refers to ', ' means ', ' defined as ',
+            ' involves ', ' comprises ', ' consists of '
+        ]
         
-        lines.append("\n**Model Examples (see src/models/):**")
-        lines.append("- Simple classifier: `src/models/supervised.py`")
-        lines.append("- GAN for latent vectors: `src/models/gan_latent.py`")
+        for i, c in enumerate(contexts[:5]):
+            if not c:
+                continue
+            text = c.get('text', '')
+            sentences = text.split('. ')
+            
+            for sent in sentences:
+                sent_lower = sent.lower()
+                if any(pattern in sent_lower for pattern in patterns):
+                    # Clean up the sentence
+                    sent = sent.strip()
+                    if len(sent) > 30 and len(sent) < 300:
+                        definitions.append((sent + '.', i+1))
         
-        lines.append("\n*Note: This is a mock response. Set HF_MODEL environment variable to use a real language model.*")
+        return definitions[:3]
+    
+    def _extract_key_points(self, context: str, subject: str) -> list:
+        """Extract key points about a subject."""
+        key_phrases = []
         
+        # Look for sentences with key indicators
+        indicators = [
+            'important', 'key', 'main', 'primary', 'essential',
+            'significant', 'critical', 'crucial', 'breakthrough',
+            'allows', 'enables', 'provides', 'offers'
+        ]
+        
+        sentences = context.split('. ')
+        for sent in sentences:
+            if any(ind in sent.lower() for ind in indicators):
+                sent = sent.strip()
+                if 20 < len(sent) < 200:
+                    # Capitalize first letter
+                    sent = sent[0].upper() + sent[1:] if sent else sent
+                    if not sent.endswith('.'):
+                        sent += '.'
+                    key_phrases.append(sent)
+        
+        return key_phrases[:5]
+    
+    def _extract_steps(self, context: str, contexts: list) -> list:
+        """Extract step-by-step information."""
+        steps = []
+        
+        # Look for numbered steps or sequential indicators
+        step_indicators = [
+            'first', 'second', 'third', 'then', 'next', 'finally',
+            'step', 'stage', 'phase', 'followed by'
+        ]
+        
+        for i, c in enumerate(contexts[:5]):
+            if not c:
+                continue
+            text = c.get('text', '')
+            sentences = text.split('. ')
+            
+            for sent in sentences:
+                sent_lower = sent.lower()
+                if any(ind in sent_lower for ind in step_indicators):
+                    sent = sent.strip()
+                    if 20 < len(sent) < 250:
+                        sent = sent[0].upper() + sent[1:] if sent else sent
+                        if not sent.endswith('.'):
+                            sent += '.'
+                        steps.append((sent, i+1))
+        
+        return steps[:6]
+    
+    def _extract_methods(self, context: str, contexts: list) -> list:
+        """Extract method descriptions."""
+        methods = []
+        
+        method_keywords = [
+            'method', 'approach', 'technique', 'algorithm', 'tool',
+            'using', 'apply', 'perform', 'employ', 'utilize'
+        ]
+        
+        for i, c in enumerate(contexts[:5]):
+            if not c:
+                continue
+            text = c.get('text', '')
+            sentences = text.split('. ')
+            
+            for sent in sentences:
+                if any(kw in sent.lower() for kw in method_keywords):
+                    sent = sent.strip()
+                    if 25 < len(sent) < 250:
+                        sent = sent[0].upper() + sent[1:] if sent else sent
+                        if not sent.endswith('.'):
+                            sent += '.'
+                        methods.append((sent, i+1))
+        
+        return methods[:5]
+    
+    def _extract_recommendations(self, context: str, contexts: list) -> list:
+        """Extract recommendations."""
+        recommendations = []
+        
+        rec_keywords = [
+            'recommend', 'suggest', 'should', 'best', 'optimal',
+            'preferred', 'advised', 'commonly used', 'widely used',
+            'standard', 'suitable', 'appropriate'
+        ]
+        
+        for i, c in enumerate(contexts[:5]):
+            if not c:
+                continue
+            text = c.get('text', '')
+            sentences = text.split('. ')
+            
+            for sent in sentences:
+                if any(kw in sent.lower() for kw in rec_keywords):
+                    sent = sent.strip()
+                    if 25 < len(sent) < 250:
+                        sent = sent[0].upper() + sent[1:] if sent else sent
+                        if not sent.endswith('.'):
+                            sent += '.'
+                        recommendations.append((sent, i+1))
+        
+        return recommendations[:5]
+    
+    def _extract_explanations(self, context: str, contexts: list) -> list:
+        """Extract explanatory sentences."""
+        explanations = []
+        
+        exp_keywords = [
+            'because', 'since', 'due to', 'reason', 'cause',
+            'therefore', 'thus', 'consequently', 'as a result',
+            'advantage', 'benefit', 'disadvantage', 'limitation'
+        ]
+        
+        for i, c in enumerate(contexts[:5]):
+            if not c:
+                continue
+            text = c.get('text', '')
+            sentences = text.split('. ')
+            
+            for sent in sentences:
+                if any(kw in sent.lower() for kw in exp_keywords):
+                    sent = sent.strip()
+                    if 30 < len(sent) < 250:
+                        sent = sent[0].upper() + sent[1:] if sent else sent
+                        if not sent.endswith('.'):
+                            sent += '.'
+                        explanations.append((sent, i+1))
+        
+        return explanations[:5]
+    
+    def _extract_relevant_sentences(self, question: str, contexts: list) -> list:
+        """Extract sentences most relevant to the question."""
+        relevant = []
+        
+        # Extract key terms from question
+        question_terms = set(question.lower().split())
+        stop_words = {'what', 'is', 'the', 'a', 'an', 'how', 'do', 'does', 'can', 'are', 'of', 'to', 'in', 'for', 'on', 'with'}
+        question_terms = question_terms - stop_words
+        
+        for i, c in enumerate(contexts[:5]):
+            if not c:
+                continue
+            text = c.get('text', '')
+            sentences = text.split('. ')
+            
+            for sent in sentences:
+                sent_lower = sent.lower()
+                # Count matching terms
+                matches = sum(1 for term in question_terms if term in sent_lower)
+                
+                if matches >= 1 and 30 < len(sent) < 300:
+                    sent = sent.strip()
+                    sent = sent[0].upper() + sent[1:] if sent else sent
+                    if not sent.endswith('.'):
+                        sent += '.'
+                    relevant.append((sent, i+1, matches))
+        
+        # Sort by number of matches
+        relevant.sort(key=lambda x: x[2], reverse=True)
+        return [(sent, idx) for sent, idx, _ in relevant[:5]]
+    
+    def _extract_subject(self, question: str) -> str:
+        """Extract the main subject from a question."""
+        question = question.lower()
+        for phrase in ['what is', 'define', 'explain']:
+            if phrase in question:
+                subject = question.split(phrase)[-1].strip().rstrip('?')
+                return subject
+        return ''
+    
+    def _fallback_answer(self, question: str) -> str:
+        """Provide a fallback answer when context doesn't help."""
+        lines = []
+        lines.append("I found some relevant literature, but couldn't extract a clear answer to your specific question.")
+        lines.append("\n**Suggestion:** Try rephrasing your question or check if:")
+        lines.append("- Your papers contain information about this topic")
+        lines.append("- The question is specific enough")
+        lines.append("- You have enough papers indexed")
+        lines.append("\nFor better results, consider setting the HF_MODEL environment variable to use a real language model.")
         return "\n".join(lines)
 
     def _mock_copilot(self, question: str, contexts: List[dict]) -> str:
